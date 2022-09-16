@@ -6,3 +6,4 @@
 
 - [create-next-app](https://github.com/vercel/next.js/tree/canary/packages/create-next-app)
 - [next/clinet](https://github.com/vercel/next.js/tree/canary/packages/next/client)
+- [next/server](https://github.com/vercel/next.js/tree/canary/packages/next/server)
