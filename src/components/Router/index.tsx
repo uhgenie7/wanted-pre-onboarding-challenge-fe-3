@@ -1,5 +1,5 @@
 import React from "react";
 
-const Router = () => {};
+const Router = ({}) => {};
 
 export default Router;

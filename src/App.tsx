@@ -1,18 +1,10 @@
 import "./App.css";
+import Root from "./pages/Root";
 
 function App() {
-  return (
-    <div className="App">
-      <h2>root</h2>
-      <button
-        onClick={() => {
-          console.log("라우트");
-        }}
-      >
-        {"Route naming"}
-      </button>
-    </div>
-  );
+  return <div className="App"></div>;
 }
 
 export default App;
+
+// 로드되면 root를 가져옴?

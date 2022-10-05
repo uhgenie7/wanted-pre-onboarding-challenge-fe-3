@@ -1,5 +1,9 @@
 import React from "react";
 
-const Route = () => {};
+const Route = ({path, component}) => {
+    return (
+        
+    )
+};
 
 export default Route;
