@@ -1,9 +1,20 @@
-import { useState } from "react";
+import { useContext } from 'react';
+import { RouteContext } from '../components/Router';
+
+// https://github.com/vercel/next.js/blob/canary/packages/next/shared/lib/router/router.ts#L1146
 
 const useRouter = () => {
-  const [push, setState] = useState("");
+  const { setRoutename } = useContext(RouteContext);
 
-  return push;
+  const push = (path: string) => {
+    // path의 변화를 알리자?
+    if (window.location.pathname === path) return;
+
+    history.pushState(null, '', path);
+    setRoutename(window.location.pathname);
+  };
+
+  return { push };
 };
 
 export default useRouter;
