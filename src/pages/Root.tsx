@@ -1,13 +1,13 @@
-import useRouter from "../hooks/useRouter";
+import useRouter from '../hooks/useRouter';
 
 const Root = () => {
-  //   const { push } = useRouter();
+  const { push } = useRouter();
   return (
     <>
-      root
+      <h2>root</h2>
       <button
-        onClick={(e) => {
-          history.pushState(null, null, "/about");
+        onClick={() => {
+          push('/about');
         }}
       >
         about
