@@ -7,6 +7,11 @@ import React, {
 } from 'react';
 import NotFound from '../../pages/NotFound';
 
+export interface PathRouteProps {
+  component?: React.ReactNode | null;
+  path: string;
+}
+
 interface RouterProps {
   basename?: string;
   children?: ReactElement<{ path: string }> | ReactElement<{ path: string }>[];
@@ -17,13 +22,19 @@ export const RouteContext = createContext({
   setRoutename: (path: string) => {},
 });
 
+export const Route = ({
+  component,
+}: PathRouteProps): React.ReactElement | null => {
+  return <>{component}</>;
+};
+
 const Router = ({
   basename = '/',
   children,
 }: RouterProps): React.ReactElement | null => {
   const [routename, setRoutename] = useState(basename);
-  const [renderPage, setRenderPage] = useState(children);
-
+  const [renderPage, setRenderPage] = useState<ReactElement>();
+  console.log('다시 여기로');
   const routeContextValue = useMemo(
     () => ({
       routename,
