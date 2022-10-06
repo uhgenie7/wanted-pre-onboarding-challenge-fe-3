@@ -1,17 +1,10 @@
-import useRouter from '../hooks/useRouter';
+import Link from '../components/Link';
 
 const About = () => {
-  const { push } = useRouter();
   return (
     <>
       <h2>about</h2>
-      <button
-        onClick={() => {
-          push('/');
-        }}
-      >
-        go main
-      </button>
+      <Link href="/">go main</Link>
     </>
   );
 };

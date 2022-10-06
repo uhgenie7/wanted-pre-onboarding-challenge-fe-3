@@ -1,17 +1,10 @@
-import useRouter from '../hooks/useRouter';
+import Link from '../components/Link';
 
 const Root = () => {
-  const { push } = useRouter();
   return (
     <>
       <h2>root</h2>
-      <button
-        onClick={() => {
-          push('/about');
-        }}
-      >
-        about
-      </button>
+      <Link href="/about">about</Link>
     </>
   );
 };
