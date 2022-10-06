@@ -34,7 +34,6 @@ const Router = ({
 }: RouterProps): React.ReactElement | null => {
   const [routename, setRoutename] = useState(basename);
   const [renderPage, setRenderPage] = useState<ReactElement>();
-  console.log('다시 여기로');
   const routeContextValue = useMemo(
     () => ({
       routename,
@@ -58,7 +57,7 @@ const Router = ({
       setRoutename(window.location.pathname);
     });
 
-    setRenderPage(matchPathname);
+    setRenderPage(matchPathname ? matchPathname : <NotFound />);
 
     return () => {
       window.removeEventListener('popstate', () => {
