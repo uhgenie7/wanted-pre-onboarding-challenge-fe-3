@@ -7,7 +7,6 @@ const useRouter = () => {
   const { setRoutename } = useContext(RouteContext);
 
   const push = (path: string) => {
-    // path의 변화를 알리자?
     if (window.location.pathname === path) return;
 
     history.pushState(null, '', path);
