@@ -8,6 +8,7 @@ import React, {
   ReactNode,
 } from 'react';
 import RouteContext from './Context';
+import { BASE_URL } from '../../utils/path';
 
 export interface PathRouteProps {
   component?: React.ReactNode | null;
@@ -15,7 +16,6 @@ export interface PathRouteProps {
 }
 
 interface RouterProps {
-  basename?: string;
   children?: ReactElement<{ path: string }> | ReactElement<{ path: string }>[];
 }
 
@@ -25,11 +25,8 @@ export const Route = ({
   return <>{component}</>;
 };
 
-const Router = ({
-  basename = '/',
-  children,
-}: RouterProps): React.ReactElement | null => {
-  const [routename, setRoutename] = useState(basename);
+const Router = ({ children }: RouterProps): React.ReactElement | null => {
+  const [routename, setRoutename] = useState('/');
   const [renderPage, setRenderPage] = useState<ReactNode>();
 
   const routeContextValue = useMemo(
@@ -42,22 +39,25 @@ const Router = ({
 
   const currentElement = Children.toArray(children).find((element) => {
     if (!isValidElement(element)) return;
-
-    return element.props.path === window.location.pathname;
+    return element.props.path === routename;
   });
 
   useEffect(() => {
+    window.location.href === BASE_URL
+      ? setRoutename('/')
+      : setRoutename(window.location.href.replace(BASE_URL, '/'));
+
     currentElement
       ? setRenderPage(currentElement)
       : setRenderPage(Children.toArray(children).at(-1));
 
     window.addEventListener('popstate', () => {
-      setRoutename(window.location.pathname);
+      setRoutename(routename);
     });
 
     return () => {
       window.removeEventListener('popstate', () => {
-        setRoutename(window.location.pathname);
+        setRoutename(routename);
       });
     };
   }, [routename]);
