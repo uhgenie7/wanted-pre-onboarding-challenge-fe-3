@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { RouteContext } from '../components/Router';
+import RouteContext from '../components/Router/Context';
 
 // https://github.com/vercel/next.js/blob/canary/packages/next/shared/lib/router/router.ts#L1146
 

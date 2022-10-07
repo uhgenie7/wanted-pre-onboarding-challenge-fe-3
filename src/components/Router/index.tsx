@@ -6,6 +6,7 @@ import React, {
   ReactElement,
 } from 'react';
 import NotFound from '../../pages/NotFound';
+import RouteContext from './Context';
 
 export interface PathRouteProps {
   component?: React.ReactNode | null;
@@ -16,11 +17,6 @@ interface RouterProps {
   basename?: string;
   children?: ReactElement<{ path: string }> | ReactElement<{ path: string }>[];
 }
-
-export const RouteContext = createContext({
-  routename: '/',
-  setRoutename: (path: string) => {},
-});
 
 export const Route = ({
   component,
@@ -53,11 +49,11 @@ const Router = ({
       ({ props }) => props.path === window.location.pathname
     );
 
+    setRenderPage(matchPathname ? matchPathname : <NotFound />);
+
     window.addEventListener('popstate', () => {
       setRoutename(window.location.pathname);
     });
-
-    setRenderPage(matchPathname ? matchPathname : <NotFound />);
 
     return () => {
       window.removeEventListener('popstate', () => {
