@@ -2,10 +2,11 @@ import React, {
   useState,
   useEffect,
   useMemo,
-  createContext,
   ReactElement,
+  Children,
+  isValidElement,
+  ReactNode,
 } from 'react';
-import NotFound from '../../pages/NotFound';
 import RouteContext from './Context';
 
 export interface PathRouteProps {
@@ -29,7 +30,8 @@ const Router = ({
   children,
 }: RouterProps): React.ReactElement | null => {
   const [routename, setRoutename] = useState(basename);
-  const [renderPage, setRenderPage] = useState<ReactElement>();
+  const [renderPage, setRenderPage] = useState<ReactNode>();
+
   const routeContextValue = useMemo(
     () => ({
       routename,
@@ -38,18 +40,16 @@ const Router = ({
     [routename, setRoutename]
   );
 
+  const currentElement = Children.toArray(children).find((element) => {
+    if (!isValidElement(element)) return;
+
+    return element.props.path === window.location.pathname;
+  });
+
   useEffect(() => {
-    if (!Array.isArray(children)) {
-      const isMatchPathname = children?.props.path === window.location.pathname;
-      setRenderPage(isMatchPathname ? children : <NotFound />);
-      return;
-    }
-
-    const matchPathname = children.find(
-      ({ props }) => props.path === window.location.pathname
-    );
-
-    setRenderPage(matchPathname ? matchPathname : <NotFound />);
+    currentElement
+      ? setRenderPage(currentElement)
+      : setRenderPage(Children.toArray(children).at(-1));
 
     window.addEventListener('popstate', () => {
       setRoutename(window.location.pathname);
