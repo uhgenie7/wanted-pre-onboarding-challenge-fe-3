@@ -4,7 +4,7 @@ import { resolve } from 'path';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base: '/wanted-pre-onboarding-challenge-fe-3',
+  base: '/wanted-pre-onboarding-challenge-fe-3/',
   plugins: [react()],
   build: {
     rollupOptions: {
